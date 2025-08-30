@@ -7,6 +7,9 @@ export default function TabLayout() {
     <Tabs
       screenOptions={{
         headerShown: false,
+        tabBarActiveTintColor: 'red',
+        tabBarInactiveTintColor: 'black',
+        tabBarLabelPosition: 'below-icon',
         tabBarStyle: Platform.select({
           ios: {
             // Use a transparent background on iOS to show the blur effect

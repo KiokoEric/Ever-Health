@@ -26,21 +26,12 @@ return (
     <Stack.Screen name='(tabs)'  options={{ title: 'Home',
       headerShown: false
     }} />
-    {/* <Stack.Screen name='index'  options={{ title: 'Home',
+    <Stack.Screen name='Login' options={{ title: 'Login',
       headerShown: false
     }} />
-    <Stack.Screen name='Exercise' options={{ title: 'Exercise',
+    <Stack.Screen name='Registration' options={{ title: 'Registration',
       headerShown: false
     }} />
-    <Stack.Screen name='Instructions' options={{ title: 'Instructions',
-      headerShown: false
-    }} />
-    <Stack.Screen name='Recipes' options={{ title: 'Recipes',
-      headerShown: false
-    }} />
-    <Stack.Screen name='Details' options={{ title: 'Details',
-      headerShown: false
-    }} /> */}
   </Stack>
 )
 }

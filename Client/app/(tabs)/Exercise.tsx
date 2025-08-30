@@ -1,7 +1,7 @@
 import Header from '@/components/Header/Header';
 import { Link } from 'expo-router';
 import React, { useState } from 'react';
-import { Image, Pressable, ScrollView, Text, View } from 'react-native';
+import { Image, Pressable, SafeAreaView, ScrollView, Text, View } from 'react-native';
 import { SelectList } from 'react-native-dropdown-select-list';
 const Exercise_Logo = require('../../assets/Images/Exercise_Logo.webp');
 
@@ -51,40 +51,42 @@ const Exercise = () => {
     };
 
 return (
-    <ScrollView>
-        <Header />
-        <View style={{ alignItems: 'center', marginTop: 10 }}>
-            <View style={{ flexDirection: 'row', gap: 8, alignItems: 'center', justifyContent: 'center', marginBottom: 10 }}>
-                <Image source={Exercise_Logo} style={{ width: 30, height: 30 }} />
-                <Text style={{ fontWeight: 'bold', fontFamily: 'InstrumentSerif', fontSize: 32, marginTop: 5, textTransform: 'capitalize' }}>Search your body part</Text>
+    <SafeAreaView>
+        <ScrollView>
+            <Header />
+            <View style={{ alignItems: 'center', marginTop: 10 }}>
+                <View style={{ flexDirection: 'row', gap: 8, alignItems: 'center', justifyContent: 'center', marginBottom: 10 }}>
+                    <Image source={Exercise_Logo} style={{ width: 30, height: 30 }} />
+                    <Text style={{ fontWeight: 'bold', fontFamily: 'InstrumentSerif', fontSize: 32, marginTop: 5, textTransform: 'capitalize' }}>Search your body part</Text>
+                </View>
+                <SelectList 
+                    value={category}
+                    setSelected={(value: string) => { setCategory(value) }} 
+                    data={Categorydata} 
+                    save="key"
+                    boxStyles= {{ borderBottomColor: 'black', marginBottom:10, width: 350}}
+                    inputStyles={{ fontFamily: 'InstrumentSerif', fontSize: 18, outline: 'none' }}
+                    dropdownTextStyles={{ fontFamily: 'InstrumentSerif', fontSize: 22,  textTransform:'capitalize', outline: 'none', paddingHorizontal: 5, paddingVertical: 2 }}
+                />
+                <Text style={{ textAlign: 'center', fontFamily: 'InstrumentSerif', fontSize: 18, color: 'red' }}>{searchError}</Text>
+                <Pressable onPress={() => fetchExerciseData(category)} style={{ alignItems: 'center', backgroundColor: 'midnightblue', marginBottom: 10, marginTop: 10, paddingVertical: 5, borderRadius: 5, width: 150  }}>
+                    <Text style={{ fontFamily: 'InstrumentSerif', fontSize: 18, color: 'white' }}>Submit</Text>
+                </Pressable>
+                <View>
+                {
+                exercises.map((exercise: any, index: number) => (
+                    <Link href={`/Instructions/${exercise.id}`} key={index}>
+                        <View style={{ flexDirection: 'column', alignItems: 'center', justifyContent: 'center', margin: 10, padding: 10, borderBottomWidth: 1, borderColor: '#494949ff', borderRadius: 5, width: 350 }}>
+                            <Image source={exercise.gifUrl} style={{ width: 300, height: 300 }} />
+                            <Text style={{ fontWeight: 'bold', fontFamily: 'InstrumentSerif', fontSize: 20, textTransform: 'capitalize' }}>{exercise.name}</Text>
+                        </View>
+                    </Link>
+                ))
+                }
+                </View>
             </View>
-            <SelectList 
-                value={category}
-                setSelected={(value: string) => { setCategory(value) }} 
-                data={Categorydata} 
-                save="key"
-                boxStyles= {{ borderBottomColor: 'black', marginBottom:10, width: 350}}
-                inputStyles={{ fontFamily: 'InstrumentSerif', fontSize: 18, outline: 'none' }}
-                dropdownTextStyles={{ fontFamily: 'InstrumentSerif', fontSize: 22,  textTransform:'capitalize', outline: 'none', paddingHorizontal: 5, paddingVertical: 2 }}
-            />
-            <Text style={{ textAlign: 'center', fontFamily: 'InstrumentSerif', fontSize: 18, color: 'red' }}>{searchError}</Text>
-            <Pressable onPress={() => fetchExerciseData(category)} style={{ alignItems: 'center', backgroundColor: 'midnightblue', marginBottom: 10, marginTop: 10, paddingVertical: 5, borderRadius: 5, width: 150  }}>
-                <Text style={{ fontFamily: 'InstrumentSerif', fontSize: 18, color: 'white' }}>Submit</Text>
-            </Pressable>
-            <View>
-            {
-            exercises.map((exercise: any, index: number) => (
-                <Link href={`/Instructions/${exercise.id}`} key={index}>
-                    <View style={{ flexDirection: 'column', alignItems: 'center', justifyContent: 'center', margin: 10, padding: 10, borderBottomWidth: 1, borderColor: '#494949ff', borderRadius: 5, width: 350 }}>
-                        <Image source={exercise.gifUrl} style={{ width: 300, height: 300 }} />
-                        <Text style={{ fontWeight: 'bold', fontFamily: 'InstrumentSerif', fontSize: 20, textTransform: 'capitalize' }}>{exercise.name}</Text>
-                    </View>
-                </Link>
-            ))
-            }
-            </View>
-        </View>
-    </ScrollView>
+        </ScrollView>
+    </SafeAreaView>
 )
 }
 
